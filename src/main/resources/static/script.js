@@ -22,3 +22,32 @@ function openInNewTab(url) {
     win.focus();
 }
 
+
+function ButtonSendPostClick() {
+    var text = document.getElementById("textAreaPost").value;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/sendPost", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("text=" + encodeURIComponent(text));
+}
+function ButtonClearTextClick() {
+    document.getElementById("textAreaPost").value = "";
+}
+function ButtonClearVarsClick() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/clearVars", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send();
+}
+function ButtonDeleteTemplateClick() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/deleteTemplate", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send();
+}
+function ButtonSaveTemplateClick() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/saveTemplate", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send();
+}
