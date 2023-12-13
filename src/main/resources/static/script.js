@@ -29,7 +29,48 @@ function ButtonSendPostClick() {
     xhr.open("POST", "/sendPost", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("text=" + encodeURIComponent(text));
+
+    // Ваш код для отправки поста, например, собрать данные из созданных полей в таблице
+    var varsTable = document.getElementById("tableViewVars");
+    var rows = varsTable.getElementsByTagName("tr");
+
+    for (var i = 1; i < rows.length; i++) {  // Начинаем с 1, чтобы пропустить заголовок таблицы
+        var cells = rows[i].getElementsByTagName("td");
+        var variableName = cells[0].innerHTML;
+        var variableValue = document.getElementById("var_" + variableName).value;
+
+
+    }
 }
+
+document.getElementById("textAreaPost").addEventListener("input", analyzeAndPopulateVars);
+
+function analyzeAndPopulateVars() {
+    var text = document.getElementById("textAreaPost").value;
+    var varsTable = document.getElementById("tableViewVars");
+
+    // Очистка таблицы
+    varsTable.innerHTML = '<thead><tr><th>Переменная</th><th>Значение</th></tr></thead>';
+
+    var regex = /__([а-яА-Яa-zA-Z0-9]+)__/g;
+    var match;
+
+    while ((match = regex.exec(text)) !== null) {
+        var variableName = match[1];
+
+        // Создание новой строки в таблице
+        var newRow = varsTable.insertRow(-1);
+
+        // Добавление ячейки с именем переменной
+        var cellName = newRow.insertCell(0);
+        cellName.innerHTML = variableName;
+
+        // Добавление ячейки со значением переменной
+        var cellValue = newRow.insertCell(1);
+        cellValue.innerHTML = '<input type="text" id="var_' + variableName + '" value="" />';
+    }
+}
+
 function ButtonClearTextClick() {
     document.getElementById("textAreaPost").value = "";
 }
