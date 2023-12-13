@@ -11,15 +11,17 @@
     <form action="/processFormData" method="post">
         <input type="text" id="fieldGroupLink" name="fieldGroupLink" placeholder="Ссылка на группу">
         <input type="text" id="fieldGroupToken" name="fieldGroupToken" placeholder="Ссылка с токеном">
+        <label>Запомнить</label>
+        <input type="checkbox" id="checkboxRemember" name="checkboxIsRemember" checked="true">
         <button type="submit">Войти</button>
         <label id="labelTextIncorrectMessage"></label>
     </form>
-    <button onclick="buttonGetTokenClick()" >Получить ссылку с токеном</button>
+    <button id="getTokenButton" onclick="buttonGetTokenClick()">Получить ссылку с токеном</button>
     <label>v. 0.01, Николай Жмакин</label>
     <label>Вход</label>
     <button onclick="buttonGetHelp()">?</button>
-    <input type="checkbox" id="checkboxRemember" checked="true">
-    <label>Запомнить</label>
+
+
 </div>
 
 <script src="/script.js"></script>
