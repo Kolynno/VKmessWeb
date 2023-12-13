@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VKmess</title>
+    <link rel="stylesheet" href="/styles.css" > <!-- Подключение файла стилей -->
+</head>
+<body>
+<div class="container">
+    <form action="/processFormData" method="post">
+        <input type="text" id="fieldGroupLink" name="fieldGroupLink" placeholder="Ссылка на группу">
+        <input type="text" id="fieldGroupToken" name="fieldGroupToken" placeholder="Ссылка с токеном">
+        <button type="submit">Войти</button>
+        <label id="labelTextIncorrectMessage"></label>
+    </form>
+    <button onclick="buttonGetTokenClick()" >Получить ссылку с токеном</button>
+    <label>v. 0.01, Николай Жмакин</label>
+    <label>Вход</label>
+    <button onclick="buttonGetHelp()">?</button>
+    <input type="checkbox" id="checkboxRemember" checked="true">
+    <label>Запомнить</label>
+</div>
+
+<script src="/script.js"></script>
+</body>
+</html>
