@@ -1,0 +1,64 @@
+#anchorPaneMain {
+    width: 1280px;
+    background-color: #D9D9D9;
+}
+
+#textAreaTemplatePreview {
+    height: 310px;
+    width: 400px;
+    background-color: #8F8F8F;
+    border: 1px solid #787878;
+}
+
+#hboxNameOfGroup {
+    height: 50px;
+    width: 1080px;
+    background-color: #BEBEBE;
+    border-bottom: 1px solid #787878;
+    display: flex;
+    align-items: center;
+}
+
+#labelNameOfGroup {
+    font-size: 30px;
+    margin-left: 10px;
+}
+
+#tableViewVars {
+    height: 620px;
+    width: 300px;
+    background-color: #656565;
+    border: 1px solid #787878;
+}
+
+#listViewTemplates {
+    height: 310px;
+    width: 400px;
+    background-color: #8F8F8F;
+    border: 1px solid #787878;
+    float: right;
+}
+
+#textAreaPost {
+    height: 620px;
+    width: 480px;
+    font-size: 16px;
+    background-color: #D9D9D9;
+    border: 1px solid #787878;
+    float: right;
+}
+
+#hboxButtons {
+    height: 50px;
+    width: 1080px;
+    background-color: #BEBEBE;
+    border-top: 1px solid #787878;
+    display: flex;
+    align-items: center;
+}
+
+button {
+    font-size: 17px;
+    background-color: #D9D9D9;
+    margin-left: 10px;
+}

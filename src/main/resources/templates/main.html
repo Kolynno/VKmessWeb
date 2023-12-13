@@ -2,9 +2,34 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VKmess</title>
+    <link rel="stylesheet" href="/main-styles.css">
 </head>
 <body>
-MAIN
+<div id="anchorPaneMain">
+    <textarea id="textAreaTemplatePreview" readonly wrap="true" placeholder="Превью шаблона"></textarea>
+    <div id="hboxNameOfGroup">
+        <label id="labelNameOfGroup" style="font-size: 30px;">Название сообщества</label>
+    </div>
+    <table id="tableViewVars">
+        <thead>
+        <tr>
+            <th id="colVariableName">Переменная</th>
+            <th id="colVariableValue">Значение</th>
+        </tr>
+        </thead>
+    </table>
+    <div id="listViewTemplates"></div>
+    <textarea id="textAreaPost" placeholder="Ваш пост" wrap="true"></textarea>
+    <div id="hboxButtons">
+        <button id="buttonSendPost" onclick="ButtonSendPostClick()">Отправить пост</button>
+        <button id="buttonClearText" onclick="ButtonClearTextClick()">Очистить текст</button>
+        <button id="buttonClearVars" onclick="ButtonClearVarsClick()">Очистить переменные</button>
+        <button id="buttonDeleteTemplate" onclick="ButtonDeleteTemplateClick()">Удалить шаблон</button>
+        <button id="buttonSaveTemplate" onclick="ButtonSaveTemplateClick()">Сохранить шаблон</button>
+    </div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>

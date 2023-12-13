@@ -115,10 +115,14 @@ public class SetDataRequests {
     }
 
     public static void setToken(String inputString) {
-        String fragment = inputString.split("#")[1];
-        String decodedFragment = URLDecoder.decode(fragment, StandardCharsets.UTF_8);
-        Data.TOKEN = getAccessToken(decodedFragment);
-        Data.IS_CORRECT_TOKEN = true;
+        try {
+            String fragment = inputString.split("#")[1];
+            String decodedFragment = URLDecoder.decode(fragment, StandardCharsets.UTF_8);
+            Data.TOKEN = getAccessToken(decodedFragment);
+            Data.IS_CORRECT_TOKEN = true;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
