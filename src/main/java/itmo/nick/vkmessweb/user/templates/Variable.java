@@ -4,15 +4,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Variable {
-
     private final StringProperty name;
     private final StringProperty value;
-
     public Variable(String name, String value) {
         this.name = new SimpleStringProperty(name);
         this.value = new SimpleStringProperty(value);
     }
-
     public StringProperty nameProperty() {
         return name;
     }
