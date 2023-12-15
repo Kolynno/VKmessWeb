@@ -22,26 +22,30 @@ function openInNewTab(url) {
     win.focus();
 }
 
-
 function ButtonSendPostClick() {
     var text = document.getElementById("textAreaPost").value;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/sendPost", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("text=" + encodeURIComponent(text));
 
-    // Ваш код для отправки поста, например, собрать данные из созданных полей в таблице
+    // Получение значений переменных и их имен
     var varsTable = document.getElementById("tableViewVars");
     var rows = varsTable.getElementsByTagName("tr");
+    var data = "text=" + encodeURIComponent(text);
 
     for (var i = 1; i < rows.length; i++) {  // Начинаем с 1, чтобы пропустить заголовок таблицы
         var cells = rows[i].getElementsByTagName("td");
         var variableName = cells[0].innerHTML;
         var variableValue = document.getElementById("var_" + variableName).value;
 
-
+        // Добавление данных о переменных в строку запроса
+        data += "&" + encodeURIComponent(variableName) + "=" + encodeURIComponent(variableValue);
     }
+
+    // Отправка запроса
+    xhr.send(data);
 }
+
 
 document.getElementById("textAreaPost").addEventListener("input", analyzeAndPopulateVars);
 
@@ -49,7 +53,6 @@ function analyzeAndPopulateVars() {
     var text = document.getElementById("textAreaPost").value;
     var varsTable = document.getElementById("tableViewVars");
 
-    // Очистка таблицы
     varsTable.innerHTML = '<thead><tr><th>Переменная</th><th>Значение</th></tr></thead>';
 
     var regex = /__([а-яА-Яa-zA-Z0-9]+)__/g;
@@ -73,12 +76,12 @@ function analyzeAndPopulateVars() {
 
 function ButtonClearTextClick() {
     document.getElementById("textAreaPost").value = "";
+    analyzeAndPopulateVars();
 }
 function ButtonClearVarsClick() {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/clearVars", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send();
+    var varsTable = document.getElementById("tableViewVars");
+    varsTable.innerHTML = '<thead><tr><th>Переменная</th><th>Значение</th></tr></thead>';
+    analyzeAndPopulateVars();
 }
 function ButtonDeleteTemplateClick() {
     var xhr = new XMLHttpRequest();

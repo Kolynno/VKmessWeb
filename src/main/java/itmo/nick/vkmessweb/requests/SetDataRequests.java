@@ -34,6 +34,8 @@ public class SetDataRequests {
             HttpGet request = new HttpGet(apiUrl);
             HttpResponse response = httpClient.execute(request);
 
+            System.out.println(apiUrl);
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), StandardCharsets.UTF_8));
             StringBuilder responseStringBuilder = new StringBuilder();
             String line;
