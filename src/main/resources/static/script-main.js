@@ -124,6 +124,11 @@ function checkAndRedirect() {
     }
 }
 
+function ButtonBackClick() {
+    window.location.href = "/start";
+}
+
+
 window.onload = function () {
     updateListViewTemplates();
     checkAndRedirect();
