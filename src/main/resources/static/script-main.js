@@ -63,15 +63,68 @@ function ButtonClearVarsClick() {
     analyzeAndPopulateVars();
 }
 
-function ButtonDeleteTemplateClick() {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "/deleteTemplate", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send();
-}
+
 function ButtonSaveTemplateClick() {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "/saveTemplate", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send();
+    const templateName = prompt("Введите имя для шаблона:");
+    if (templateName !== null && templateName.trim() !== "") {
+        const textToSave = document.getElementById("textAreaPost").value;
+        if (typeof(Storage) !== "undefined") {
+            localStorage.setItem(`template_${templateName}`, textToSave);
+            alert(`Шаблон "${templateName}" сохранен в локальной памяти.`);
+            updateListViewTemplates();
+        } else {
+            alert("Ваш браузер не поддерживает локальное хранилище, шаблон не может быть сохранен.");
+        }
+    } else {
+        alert("Данное имя недопустимо")
+    }
 }
+
+let lastSelectedTemplateKey = null;
+
+function updateListViewTemplates() {
+    const listView = document.getElementById("listViewTemplates");
+    listView.innerHTML = "";
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith("template_")) {
+            const templateName = key.replace("template_", "");
+            const templateButton = document.createElement("button");
+            templateButton.innerText = templateName;
+            templateButton.onclick = function() {
+                lastSelectedTemplateKey = key;
+                document.getElementById("textAreaTemplatePreview").value = localStorage.getItem(key);
+            };
+            templateButton.ondblclick = function () {
+                document.getElementById("textAreaPost").value = localStorage.getItem(key);
+                document.getElementById("textAreaTemplatePreview").value = "Превью шаблона";
+                analyzeAndPopulateVars();
+            }
+            listView.appendChild(templateButton);
+        }
+    }
+}
+
+function ButtonDeleteTemplateClick() {
+    if (lastSelectedTemplateKey !== null) {
+        localStorage.removeItem(lastSelectedTemplateKey);
+        lastSelectedTemplateKey = null;
+        alert("Шаблон удален.");
+        updateListViewTemplates();
+    } else {
+        alert("Нет выбранного шаблона для удаления.");
+    }
+}
+
+function checkAndRedirect() {
+    const groupLink = localStorage.getItem("fieldGroupLink");
+    const groupToken = localStorage.getItem("fieldGroupToken");
+    if (!groupLink || !groupToken) {
+        window.location.href = "/start";
+    }
+}
+
+window.onload = function () {
+    updateListViewTemplates();
+    checkAndRedirect();
+};
