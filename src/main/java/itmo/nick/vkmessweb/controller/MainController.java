@@ -6,7 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -19,17 +21,24 @@ public class MainController {
 
 
     @PostMapping("/sendPost")
-    public String sendPost(
+    @ResponseBody
+    public Map<String, String> sendPost(
             @RequestParam("text") String text,
             @RequestParam Map<String, String> vars
     ) {
+        Map<String, String> response = new HashMap<>();
+
         if (TextConstructor.textConstruct(text, vars)) {
             System.out.println("done");
+            response.put("success", "true");
         } else {
             System.out.println("NO");
+            response.put("success", "false");
         }
-        return "main";
+
+        return response;
     }
+
 
 
 

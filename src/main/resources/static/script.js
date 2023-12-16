@@ -33,7 +33,7 @@ function ButtonSendPostClick() {
     var rows = varsTable.getElementsByTagName("tr");
     var data = "text=" + encodeURIComponent(text);
 
-    for (var i = 1; i < rows.length; i++) {  // Начинаем с 1, чтобы пропустить заголовок таблицы
+    for (var i = 1; i < rows.length; i++) {
         var cells = rows[i].getElementsByTagName("td");
         var variableName = cells[0].innerHTML;
         var variableValue = document.getElementById("var_" + variableName).value;
@@ -42,9 +42,29 @@ function ButtonSendPostClick() {
         data += "&" + encodeURIComponent(variableName) + "=" + encodeURIComponent(variableValue);
     }
 
+    // Определение обработчика успешного ответа
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            if (response.success === 'true') {
+                alert("Успешно");
+                document.getElementById("textAreaPost").value = "";
+                analyzeAndPopulateVars();
+            } else {
+                alert("Не отправлено");
+            }
+        }
+    };
+
+    // Определение обработчика ошибки
+    xhr.onerror = function() {
+        alert("Ошибка при отправке запроса");
+    };
+
     // Отправка запроса
     xhr.send(data);
 }
+
 
 
 document.getElementById("textAreaPost").addEventListener("input", analyzeAndPopulateVars);
