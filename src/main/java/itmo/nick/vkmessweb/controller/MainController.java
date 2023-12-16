@@ -24,10 +24,9 @@ public class MainController {
     @ResponseBody
     public Map<String, String> sendPost(
             @RequestParam("text") String text,
-            @RequestParam Map<String, String> vars
-    ) {
-        Map<String, String> response = new HashMap<>();
+            @RequestParam Map<String, String> vars) {
 
+        Map<String, String> response = new HashMap<>();
         if (TextConstructor.textConstruct(text, vars)) {
             System.out.println("done");
             response.put("success", "true");
@@ -35,29 +34,21 @@ public class MainController {
             System.out.println("NO");
             response.put("success", "false");
         }
-
         return response;
     }
 
-
-
-
     @PostMapping("/clearVars")
     public String clearVars() {
-
         return "main";
     }
 
     @PostMapping("/deleteTemplate")
     public String deleteTemplate() {
-
         return "main";
     }
 
     @PostMapping("/saveTemplate")
     public String saveTemplate() {
-
         return "main";
     }
-
 }
