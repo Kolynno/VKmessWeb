@@ -1,3 +1,21 @@
+function setName() {
+    const label = document.getElementById("labelNameOfGroup");
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/getName", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            console.log(response);
+            label.textContent = response.name;
+            console.log(response.name);
+        }
+    };
+
+    xhr.send();
+}
+
 function ButtonSendPostClick() {
     const text = document.getElementById("textAreaPost").value;
     const xhr = new XMLHttpRequest();
@@ -66,7 +84,7 @@ function ButtonClearVarsClick() {
 
 function ButtonSaveTemplateClick() {
     const templateName = prompt("Введите имя для шаблона:");
-    if (templateName !== null && templateName.trim() !== "") {
+    if (templateName !== null && templateName.trim() !== "" && templateName.length <= 15) {
         const textToSave = document.getElementById("textAreaPost").value;
         if (typeof(Storage) !== "undefined") {
             localStorage.setItem(`template_${templateName}`, textToSave);
@@ -76,7 +94,7 @@ function ButtonSaveTemplateClick() {
             alert("Ваш браузер не поддерживает локальное хранилище, шаблон не может быть сохранен.");
         }
     } else {
-        alert("Данное имя недопустимо")
+        alert("Пустое или слишком длинное имя")
     }
 }
 
@@ -90,10 +108,17 @@ function updateListViewTemplates() {
         if (key.startsWith("template_")) {
             const templateName = key.replace("template_", "");
             const templateButton = document.createElement("button");
+            templateButton.setAttribute("class", "templateButton");
             templateButton.innerText = templateName;
             templateButton.onclick = function() {
                 lastSelectedTemplateKey = key;
                 document.getElementById("textAreaTemplatePreview").value = localStorage.getItem(key);
+
+                const templateButtons = document.querySelectorAll(".templateButton");
+                templateButtons.forEach(function(button) {
+                    button.style.backgroundColor = "#D9D9D9";
+                });
+                templateButton.style.backgroundColor = "#828282";
             };
             templateButton.ondblclick = function () {
                 document.getElementById("textAreaPost").value = localStorage.getItem(key);
@@ -110,13 +135,24 @@ function ButtonDeleteTemplateClick() {
         localStorage.removeItem(lastSelectedTemplateKey);
         lastSelectedTemplateKey = null;
         alert("Шаблон удален.");
+        document.getElementById("textAreaTemplatePreview").value = "";
         updateListViewTemplates();
+
     } else {
         alert("Нет выбранного шаблона для удаления.");
     }
 }
 
 function checkAndRedirect() {
+
+    const rememberMe = localStorage.getItem("rememberData");
+    if (rememberMe === "false") {
+        setTimeout(function () {
+            localStorage.removeItem("fieldGroupLink");
+            localStorage.removeItem("fieldGroupToken");
+        }, 5000)
+    }
+
     const groupLink = localStorage.getItem("fieldGroupLink");
     const groupToken = localStorage.getItem("fieldGroupToken");
     if (!groupLink || !groupToken) {
@@ -132,4 +168,5 @@ function ButtonBackClick() {
 window.onload = function () {
     updateListViewTemplates();
     checkAndRedirect();
+    setName()
 };

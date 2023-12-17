@@ -7,10 +7,11 @@
     <link rel="stylesheet" href="/main-styles.css">
 </head>
 <body>
+
 <div id="anchorPaneMain">
-    <textarea id="textAreaTemplatePreview" readonly wrap="true" placeholder="Превью шаблона"></textarea>
     <div id="hboxNameOfGroup">
         <label id="labelNameOfGroup" style="font-size: 30px;">Название сообщества</label>
+        <button id="backButton" onclick="ButtonBackClick()">Обратно</button>
     </div>
     <table id="tableViewVars">
         <thead>
@@ -20,8 +21,13 @@
         </tr>
         </thead>
     </table>
+    <div id="rightSide">
     <div id="listViewTemplates"></div>
+    <textarea id="textAreaTemplatePreview" readonly wrap="true" placeholder="Превью шаблона"></textarea>
+    </div>
+    <div id="textAreaPostDiv">
     <textarea id="textAreaPost" placeholder="Ваш пост" wrap="true"></textarea>
+    </div>
     <div id="hboxButtons">
         <button id="buttonSendPost" onclick="ButtonSendPostClick()">Отправить пост</button>
         <button id="buttonClearText" onclick="ButtonClearTextClick()">Очистить текст</button>
@@ -30,7 +36,6 @@
         <button id="buttonSaveTemplate" onclick="ButtonSaveTemplateClick()">Сохранить шаблон</button>
     </div>
 </div>
-<button style="position: absolute; right: 50px; top: 50px;" onclick="ButtonBackClick()">Обратно</button>
-<script src="script-main.js"></script>
+<script src="/script-main.js"></script>
 </body>
 </html>

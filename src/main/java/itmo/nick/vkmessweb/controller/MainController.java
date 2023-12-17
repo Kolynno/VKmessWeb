@@ -1,5 +1,6 @@
 package itmo.nick.vkmessweb.controller;
 
+import itmo.nick.vkmessweb.data.Data;
 import itmo.nick.vkmessweb.handler.TextConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,18 +38,13 @@ public class MainController {
         return response;
     }
 
-    @PostMapping("/clearVars")
-    public String clearVars() {
-        return "main";
+    @PostMapping("/getName")
+    @ResponseBody
+    public Map<String, String> getName() {
+        Map<String, String> response = new HashMap<>();
+        response.put("name", Data.GROUP_NAME);
+        return response;
     }
 
-    @PostMapping("/deleteTemplate")
-    public String deleteTemplate() {
-        return "main";
-    }
 
-    @PostMapping("/saveTemplate")
-    public String saveTemplate() {
-        return "main";
-    }
 }

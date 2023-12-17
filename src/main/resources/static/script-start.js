@@ -36,17 +36,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Обработчик события отправки формы
     form.addEventListener('submit', function (event) {
-        // При отправке формы сохраняем данные, если чекбокс отмечен
+        if (fieldGroupLink.value.trim() === "" || fieldGroupToken.value.trim() === "") {
+            alert("Недопустимое значение в поле ввода");
+        }
         if (checkboxRemember.checked) {
             localStorage.setItem('rememberData', 'true');
             localStorage.setItem('fieldGroupLink', fieldGroupLink.value);
             localStorage.setItem('fieldGroupToken', fieldGroupToken.value);
         } else {
-            // Если чекбокс не отмечен, очищаем сохраненные данные
-            localStorage.removeItem('rememberData');
-            localStorage.removeItem('fieldGroupLink');
-            localStorage.removeItem('fieldGroupToken');
+            localStorage.setItem('rememberData', 'false');
+            localStorage.setItem('fieldGroupLink', fieldGroupLink.value);
+            localStorage.setItem('fieldGroupToken', fieldGroupToken.value);
         }
     });
 });
+
+window.onfocus = function() {
+    const rememberMe = localStorage.getItem("rememberData");
+    if (rememberMe === "false") {
+        localStorage.removeItem("fieldGroupLink");
+        localStorage.removeItem("fieldGroupToken");
+    }
+}
 

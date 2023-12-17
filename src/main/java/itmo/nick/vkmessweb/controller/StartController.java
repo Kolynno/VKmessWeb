@@ -22,14 +22,13 @@ public class StartController {
     public String processFormData(
             @RequestParam("fieldGroupLink") String fieldGroupLink,
             @RequestParam("fieldGroupToken") String fieldGroupToken,
-            @RequestParam(name = "checkboxIsRemember", defaultValue = "false") Boolean checkboxIsRemember,
             Model model) {
 
-        String nextView = getAccess(fieldGroupLink, fieldGroupToken, checkboxIsRemember);
+        String nextView = getAccess(fieldGroupLink, fieldGroupToken);
         return nextView;
     }
 
-    private String getAccess(String fieldGroupLink, String fieldGroupToken, Boolean checkboxIsRemember) {
+    private String getAccess(String fieldGroupLink, String fieldGroupToken) {
             String tokenURL = fieldGroupToken;
             if (tokenURL.length() > 0) {
                 SetDataRequests.setToken(tokenURL);
@@ -40,17 +39,10 @@ public class StartController {
             }
             CheckRequests.checkGroupIdAndToken();
             if (Data.IS_CORRECT) {
-                checkRadioButtonRemember(checkboxIsRemember);
-                System.out.println(Data.GROUP_ID);
-                System.out.println(Data.TOKEN);
                 return "main";
             } else {
                 return "start";
             }
-    }
-
-    private void checkRadioButtonRemember(Boolean checkboxIsRemember) {
-
     }
 
     @PostMapping("/processTokenLink")
