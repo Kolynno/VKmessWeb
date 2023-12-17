@@ -2,13 +2,13 @@ function buttonGetTokenClick() {
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "/processTokenLink", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send();
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             const url = xhr.responseText;
             openInNewTab(url);
         }
     };
-    xhr.send();
 }
 
 function buttonGetHelp() {
@@ -21,21 +21,17 @@ function openInNewTab(url) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Получаем элементы формы и чекбокса
-    var form = document.querySelector('form');
-    var checkboxRemember = document.getElementById('checkboxRemember');
-    var fieldGroupLink = document.getElementById('fieldGroupLink');
-    var fieldGroupToken = document.getElementById('fieldGroupToken');
+    const form = document.querySelector('form');
+    const checkboxRemember = document.getElementById('checkboxRemember');
+    const fieldGroupLink = document.getElementById('fieldGroupLink');
+    const fieldGroupToken = document.getElementById('fieldGroupToken');
 
-    // Загружаем сохраненные значения при запуске страницы
     if (localStorage.getItem('rememberData') === 'true') {
         checkboxRemember.checked = true;
         fieldGroupLink.value = localStorage.getItem('fieldGroupLink');
         fieldGroupToken.value = localStorage.getItem('fieldGroupToken');
     }
-
-    // Обработчик события отправки формы
-    form.addEventListener('submit', function (event) {
+    form.addEventListener('submit', function () {
         if (fieldGroupLink.value.trim() === "" || fieldGroupToken.value.trim() === "") {
             alert("Недопустимое значение в поле ввода");
         }

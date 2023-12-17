@@ -6,7 +6,7 @@ public class Data {
     public static String GROUP_ID;
     public static String GROUP_NAME = "Untitled";
 
-    public static String TOKEN;
+    public static String TOKEN = "Nope";
 
     public static Boolean IS_CORRECT_GROUP_ID = false;
     public static Boolean IS_CORRECT_TOKEN = false;

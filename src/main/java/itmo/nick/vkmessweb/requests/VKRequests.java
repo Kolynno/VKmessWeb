@@ -42,7 +42,6 @@ public class VKRequests {
                     System.out.println("Error in response: " + responseContent);
                     return false;
                 }
-
                 return true;
             }
         } catch (IOException | URISyntaxException e) {

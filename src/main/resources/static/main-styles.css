@@ -25,6 +25,12 @@
     outline: none;
 }
 
+#rightSide {
+    float:right;
+    width: 250px;
+    border:none;
+}
+
 #hboxNameOfGroup {
     height: 50px;
     width: 100%;
@@ -46,7 +52,6 @@
     float: left;
 }
 
-
 #textAreaPost {
     height:100%;
     width:100%;
@@ -57,7 +62,6 @@
     border:none;
     border-left:1px solid darkgrey;
 }
-
 
 #textAreaPost:focus {
     outline: none;
@@ -88,13 +92,6 @@ button:active {
     font-size: 17px;
     background-color: #828282;
     margin: 10px 10px;
-}
-
-
-#rightSide {
-    float:right;
-    width: 250px;
-    border:none;
 }
 
 #textAreaPostDiv {

@@ -5,23 +5,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>VKmess</title>
         <link rel="stylesheet" href="/styles.css">
-        <!-- Подключение файла стилей -->
     </head>
     <body>
         <div class="background">
             <div class="container">
                 <div class="form-container">
                     <form action="/processFormData" method="post">
-                        <label for="form">Вход</label>
+                        <label>Вход</label>
                         <input type="text" id="fieldGroupLink"
                             name="fieldGroupLink"
                             placeholder="Введите ссылку группы">
                         <input type="text" id="fieldGroupToken"
                             name="fieldGroupToken"
                             placeholder="Введите ссылку с токеном">
-                         <label for="text">Запомнить <input type="checkbox" id="checkboxRemember"
-                                                            name="checkboxIsRemember" checked="true"></label>
-
+                         <label>Запомнить<input type="checkbox" id="checkboxRemember"
+                                                name="checkboxIsRemember" checked="true"></label>
                         <button type="button" id="getTokenButton"
                             onclick="buttonGetTokenClick()">Получить
                             ссылку с токеном</button>
@@ -31,11 +29,10 @@
                 </div>
             </div>
             <footer>
-                <label for="form-container">v. 0.01, Николай Жмакин</label>
+                <label>v. 0.01, Николай Жмакин</label>
                 <button onclick="buttonGetHelp()">?</button>
             </footer>
         </div>
-
         <script src="/script-start.js"></script>
     </body>
 </html>

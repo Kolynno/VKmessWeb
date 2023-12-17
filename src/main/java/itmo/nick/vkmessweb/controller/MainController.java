@@ -16,23 +16,17 @@ import java.util.Map;
 public class MainController {
 
     @GetMapping("/main")
-    public String start(Model model) {
+    public String start() {
         return "main";
     }
 
-
     @PostMapping("/sendPost")
     @ResponseBody
-    public Map<String, String> sendPost(
-            @RequestParam("text") String text,
-            @RequestParam Map<String, String> vars) {
-
+    public Map<String, String> sendPost(@RequestParam("text") String text, @RequestParam Map<String, String> vars) {
         Map<String, String> response = new HashMap<>();
         if (TextConstructor.textConstruct(text, vars)) {
-            System.out.println("done");
             response.put("success", "true");
         } else {
-            System.out.println("NO");
             response.put("success", "false");
         }
         return response;
@@ -45,6 +39,4 @@ public class MainController {
         response.put("name", Data.GROUP_NAME);
         return response;
     }
-
-
 }

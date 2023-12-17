@@ -14,35 +14,29 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class StartController {
 
     @GetMapping("/start")
-    public String start(Model model) {
+    public String start() {
         return "start";
     }
 
     @PostMapping("/processFormData")
-    public String processFormData(
-            @RequestParam("fieldGroupLink") String fieldGroupLink,
-            @RequestParam("fieldGroupToken") String fieldGroupToken,
-            Model model) {
-
-        String nextView = getAccess(fieldGroupLink, fieldGroupToken);
-        return nextView;
+    public String processFormData(@RequestParam("fieldGroupLink") String fieldGroupLink,
+                                  @RequestParam("fieldGroupToken") String fieldGroupToken) {
+        return getAccess(fieldGroupLink, fieldGroupToken);
     }
 
     private String getAccess(String fieldGroupLink, String fieldGroupToken) {
-            String tokenURL = fieldGroupToken;
-            if (tokenURL.length() > 0) {
-                SetDataRequests.setToken(tokenURL);
+        if (fieldGroupToken.length() > 0) {
+                SetDataRequests.setToken(fieldGroupToken);
             }
-            String groupIdStr = fieldGroupLink;
-            if (groupIdStr.length() > 0) {
-                SetDataRequests.setGroupId(groupIdStr);
+        if (fieldGroupLink.length() > 0) {
+                SetDataRequests.setGroupId(fieldGroupLink);
             }
-            CheckRequests.checkGroupIdAndToken();
-            if (Data.IS_CORRECT) {
-                return "main";
-            } else {
-                return "start";
-            }
+        CheckRequests.checkGroupIdAndToken();
+        if (Data.IS_CORRECT) {
+            return "main";
+        } else {
+            return "start";
+        }
     }
 
     @PostMapping("/processTokenLink")

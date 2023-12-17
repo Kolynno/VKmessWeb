@@ -21,12 +21,13 @@ import java.util.Map;
 public class SetDataRequests {
 
     public static void setGroupId(String groupIdStr) {
-        groupIdStr = groupIdStr.substring(15).trim();
-        Data.GROUP_ID = getGroupIdAndName(groupIdStr);
+        if (groupIdStr.length() > 15) {
+            groupIdStr = groupIdStr.substring(15).trim();
+            Data.GROUP_ID = getGroupIdAndName(groupIdStr);
+        }
     }
 
     private static String getGroupIdAndName(String groupURL) {
-
         int id = 0;
         try {
             HttpClient httpClient = HttpClients.createDefault();
@@ -69,51 +70,7 @@ public class SetDataRequests {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return String.valueOf(id);
-    }
-
-
-    private static void getGroupName(String groupURL) {
-
-        int id = 0;
-
-        try {
-            HttpClient httpClient = HttpClients.createDefault();
-            String apiUrl = "https://api.vk.com/method/groups.getById?group_id=" + groupURL + "&access_token=" + Data.TOKEN + "&v=5.154";
-            HttpGet request = new HttpGet(apiUrl);
-            HttpResponse response = httpClient.execute(request);
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), StandardCharsets.UTF_8));
-            StringBuilder responseStringBuilder = new StringBuilder();
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                responseStringBuilder.append(line);
-            }
-
-            ObjectMapper objectMapper = new ObjectMapper().enable(JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS.mappedFeature());
-            objectMapper.setLocale(Locale.forLanguageTag("ru-RU"));
-
-            JsonNode jsonResponse = objectMapper.readTree(responseStringBuilder.toString());
-            JsonNode responseNode = jsonResponse.get("response");
-            if (responseNode != null && responseNode.has("groups")) {
-                JsonNode groupsNode = responseNode.get("groups");
-
-                if (groupsNode.isArray() && !groupsNode.isEmpty()) {
-                    JsonNode firstGroupNode = groupsNode.get(0);
-
-                    if(firstGroupNode.has("name")) {
-                        Data.GROUP_NAME = firstGroupNode.get("name").asText();
-                    }
-                }
-            } else {
-                System.out.println("ID group isn't correct");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     public static void setToken(String inputString) {
@@ -141,5 +98,4 @@ public class SetDataRequests {
         }
         return paramMap.get("access_token");
     }
-
 }
